@@ -5,7 +5,7 @@ from typing import Iterable
 class NameList:
     seed = 0
 
-    def __init__(self, names: Iterable, repetition=1):
+    def __init__(self, names: Iterable, repetition=1, default_count=1, priority=0):
         base_names = [str(name) for name in names]
         self.names = []
         for i in range(repetition):
@@ -13,6 +13,9 @@ class NameList:
         self._loc = 0
         self.seed = -1
         self.shuffle()
+
+        self.count = default_count
+        self.priority = priority
 
     def shuffle(self):
         self.seed = NameList.seed
@@ -44,7 +47,7 @@ class NameList:
         return self
 
     def __str__(self):
-        return f"NameList[{len(self)}] ({','.join(self.names[:3])})"
+        return f"{', '.join(self.get(self.count))}"
 
     def __repr__(self):
-        return f"<NameList[{len(self)}]>"
+        return f"<NameList[{len(self)}] ({','.join(self.names[:3])})>"
