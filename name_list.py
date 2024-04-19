@@ -35,7 +35,7 @@ class NameList:
 
     def get(self, n: int = 1) -> list[str]:
         namerator = iter(self)
-        return [next(namerator) for __ in range(n)]
+        return [next(namerator).title() for __ in range(n)]
 
     def __len__(self):
         return len(self.names)

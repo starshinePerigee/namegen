@@ -27,6 +27,22 @@ baby_names = NameList(_final_babies, 3, 2)
 name_lists.append(baby_names)
 
 
+_forenames_by_country_df = pd.read_csv(
+    "names/common-forenames-by-country.csv", header=0
+)
+forenames_country = NameList(
+    list(_forenames_by_country_df["Romanized Name"]), priority=20, default_count=3
+)
+name_lists.append(forenames_country)
+
+
+_surnames_by_country_df = pd.read_csv("names/common-surnames-by-country.csv", header=0)
+forenames_country = NameList(
+    list(_forenames_by_country_df["Romanized Name"]), priority=18, default_count=2
+)
+name_lists.append(forenames_country)
+
+
 name_lists.sort(key=lambda x: x.priority, reverse=True)
 
 
