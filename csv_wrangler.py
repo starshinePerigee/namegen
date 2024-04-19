@@ -19,4 +19,10 @@ for name_list in _baby_name_lists:
     _final_babies += name_list[100:] + name_list[:100]
 baby_names = NameList(_final_babies, 3)
 
-print("x")
+
+def wrangle_names():
+    print(f"{song_names.get(1)[0]}; {', '.join(baby_names.get(2))}")
+
+
+for i in range(10):
+    wrangle_names()

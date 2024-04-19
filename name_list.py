@@ -37,8 +37,11 @@ class NameList:
     def __len__(self):
         return len(self.names)
 
+    def __next__(self):
+        return self.names[self.loc]
+
     def __iter__(self):
-        yield self.names[self.loc % len(self.names)]
+        return self
 
     def __str__(self):
         return f"NameList[{len(self)}] ({','.join(self.names[:3])})"
