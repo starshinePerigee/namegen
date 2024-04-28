@@ -9,7 +9,7 @@ class NameList:
         base_names = [str(name) for name in names]
         self.names = []
         for i in range(repetition):
-            self.names += base_names[: int(len(base_names) / 10) + 1]
+            self.names += base_names[: int(len(base_names) / repetition) + 1]
         self._loc = 0
         self.seed = -1
         self.shuffle()
