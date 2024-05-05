@@ -87,15 +87,29 @@ unisex_names = NameList(list(_unisex_name_df["name"]), priority=-1, default_coun
 name_lists.append(unisex_names)
 
 
-_word_df = pd.read_excel("names/wordFrequency.xlsx")
+_good_word_df = pd.read_csv("names/wordFrequency_nvj.csv", header=0)
+_good_word_df = _good_word_df.loc[_good_word_df["rank"] > 100]
+good_words = NameList(list(_good_word_df["lemma"]), priority=-80, default_count=3)
+name_lists.append(good_words)
+
+
+_all_word_df = pd.read_csv("names/en_50k.txt", names=["name", "rank"], sep=" ")
+_all_word_df = _all_word_df.iloc[500:]
+_all_word_df = _all_word_df.loc[_all_word_df["name"].apply(lambda x: len(str(x)) > 2)]
+all_words = NameList(list(_all_word_df["name"]), priority=-100, default_count=4)
+name_lists.append(all_words)
 
 
 name_lists.sort(key=lambda x: x.priority, reverse=True)
 
 
-def wrangle_names():
-    print("; ".join(str(nl) for nl in name_lists))
+def wrangle_names() -> str:
+    return ";  ".join(str(nl) for nl in name_lists)
 
 
-for i in range(10):
-    wrangle_names()
+# for i in range(10):
+#     print(wrangle_names())
+
+with open("gen_names.txt", "wt", encoding="utf-8") as f:
+    for i in range(1000):
+        f.write(wrangle_names() + "\n\n")
