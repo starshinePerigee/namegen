@@ -103,13 +103,29 @@ name_lists.append(all_words)
 name_lists.sort(key=lambda x: x.priority, reverse=True)
 
 
-def wrangle_names() -> str:
-    return ";  ".join(str(nl) for nl in name_lists)
+def wrangle_names(sep: str = ";  ") -> str:
+    return sep.join(str(nl) for nl in name_lists)
 
 
 # for i in range(10):
 #     print(wrangle_names())
 
-with open("gen_names.txt", "wt", encoding="utf-8") as f:
-    for i in range(1000):
-        f.write(wrangle_names() + "\n\n")
+# with open("gen_names.txt", "wt", encoding="utf-8") as f:
+#     for i in range(1000):
+#         f.write(wrangle_names() + "\n\n")
+
+
+# blaseball
+from random import shuffle
+from itertools import chain
+
+names = list(chain(*(wrangle_names(",").split(",") for _ in range(20))))
+shuffle(names)
+names = [name.strip() for name in names]
+
+print("   *Lineup*")
+for i in range(9):
+    print(f"{names[i]} {names[i+20]}".title())
+print("   *Bullpen*")
+for i in range(9, 14):
+    print(f"{names[i]} {names[i+20]}".title())
